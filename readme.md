@@ -1,51 +1,17 @@
-# example
-**example** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
+# Consensus-Breaking Change
 
-## Get started
+## What does it mean by breaking consensus?
 
-```
-ignite chain serve
-```
+Breaking consensus refers to making changes to the blockchain's protocol that are not backwards-compatible. When consensus is broken, nodes running the old version of the software will not agree with nodes running the new version, potentially leading to a chain split.
 
-`serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
+## Why this change breaks consensus
 
-### Configure
+In this project, we modified how post IDs are generated. Previously, post IDs were assigned sequentially (count + 1). In the new version, we changed it to (count + 2).
 
-Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).
+This breaks consensus because:
 
-### Web Frontend
+1. Nodes running the old software will generate different post IDs than nodes running the new software for the same transactions.
+2. This discrepancy in ID generation will lead to different state outcomes for the same set of transactions.
+3. As a result, nodes will disagree on the state of the blockchain, breaking consensus.
 
-Additionally, Ignite CLI offers both Vue and React options for frontend scaffolding:
-
-For a Vue frontend, use: `ignite scaffold vue`
-For a React frontend, use: `ignite scaffold react`
-These commands can be run within your scaffolded blockchain project. 
-
-
-For more information see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
-
-## Release
-To release a new version of your blockchain, create and push a new tag with `v` prefix. A new draft release with the configured targets will be created.
-
-```
-git tag v0.1
-git push origin v0.1
-```
-
-After a draft release is created, make your final changes from the release page and publish it.
-
-### Install
-To install the latest version of your blockchain node's binary, execute the following command on your machine:
-
-```
-curl https://get.ignite.com/username/example@latest! | sudo bash
-```
-`username/example` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
-
-## Learn more
-
-- [Ignite CLI](https://ignite.com/cli)
-- [Tutorials](https://docs.ignite.com/guide)
-- [Ignite CLI docs](https://docs.ignite.com)
-- [Cosmos SDK docs](https://docs.cosmos.network)
-- [Developer Chat](https://discord.gg/ignite)
+To implement this change safely, a coordinated upgrade of all nodes would be required, along with a migration of existing data to the new format.
