@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package example.example;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "example/example/params.proto";
+import "example/example/post.proto";
+
+option go_package = "example/x/example/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/example/example/params";
+  
+  }
+  
+  // Queries a list of Post items.
+  rpc Post    (QueryGetPostRequest) returns (QueryGetPostResponse) {
+    option (google.api.http).get = "/example/example/post/{id}";
+  
+  }
+  rpc PostAll (QueryAllPostRequest) returns (QueryAllPostResponse) {
+    option (google.api.http).get = "/example/example/post";
+  
+  }
+  
+  // Queries a list of ShowPost items.
+  rpc ShowPost (QueryShowPostRequest) returns (QueryShowPostResponse) {
+    option (google.api.http).get = "/example/example/show_post/{id}";
+  
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
+}
+
+message QueryGetPostRequest {
+  uint64 id = 1;
+}
+
+message QueryGetPostResponse {
+  Post Post = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllPostRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+  // Add the following line for the filter field
+  string filter = 2; // Assuming you want a simple string filter
+
+}
+
+message QueryAllPostResponse {
+  repeated Post                                   Post       = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryShowPostRequest {
+  uint64 id = 1;
+}
+
+//to generate field without pointer
+message QueryShowPostResponse {
+  Post post = 1 [(gogoproto.nullable) = false];
+}
+
+//to generate field without pointer
+message QueryListPostResponse {
+  repeated Post post = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
