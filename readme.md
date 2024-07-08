@@ -49,3 +49,12 @@ curl https://get.ignite.com/username/example@latest! | sudo bash
 - [Ignite CLI docs](https://docs.ignite.com)
 - [Cosmos SDK docs](https://docs.cosmos.network)
 - [Developer Chat](https://discord.gg/ignite)
+
+![image](https://github.com/rouzhen/miniblockchain/assets/119156668/78486ad0-1b86-4b6e-9b8a-a5667df2f36f)
+
+![image](https://github.com/rouzhen/miniblockchain/assets/119156668/b2d3d371-3c50-4e9e-b8c9-07ea1209b9dd)
+
+![image](https://github.com/rouzhen/miniblockchain/assets/119156668/233979a3-50a6-4674-b99c-7fa73fe45408)
+
+
+
