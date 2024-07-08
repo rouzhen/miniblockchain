@@ -57,8 +57,8 @@ func (k Keeper) AppendPost(
 	appendedValue := k.cdc.MustMarshal(&post)
 	store.Set(GetPostIDBytes(post.Id), appendedValue)
 
-	// Update post count
-	k.SetPostCount(ctx, count+1)
+	// Changed from count + 1 to count + 2
+	k.SetPostCount(ctx, count+2)
 
 	return count
 }
